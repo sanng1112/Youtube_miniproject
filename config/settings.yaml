@@ -1,0 +1,113 @@
+# ============================================
+# Pipeline Configuration
+# ============================================
+
+pipeline:
+  name: "YouTube Audiobook Pipeline"
+  version: "1.0.0"
+  max_workers: 4
+  retry_attempts: 3
+  retry_delay_seconds: 30
+
+# --- Story Generation ---
+story_generation:
+  engine: "openai"  # openai | anthropic | gemini
+  model: "gpt-4o"
+  default_genre: "ngon_tinh_hien_dai"
+  words_per_chapter: 1500
+  chapters_per_story: 6
+  genres:
+    - ngon_tinh_hien_dai
+    - ngon_tinh_tong_tai
+    - trong_sinh_xuyen_khong
+    - co_dai_cung_dau
+    - thanh_xuan_vuon_truong
+    - chua_lanh_gia_dinh
+    - nu_cuong
+    - hai_huoc_doi_thuong
+
+# --- Text Processing ---
+text_processing:
+  max_chars_per_tts_call: 500
+  sentence_end_markers: [".", "!", "?", "…"]
+  normalize_numbers: true
+  filter_sensitive_content: true
+
+# --- TTS Generation ---
+tts:
+  engine: "vieneu"  # vieneu | vbee | edge
+  vieneu:
+    mode: "standard"  # standard | turbo | remote
+    emotion: "storytelling"  # natural | storytelling
+    voice_preset: "truc_ly"
+    sample_rate: 24000
+    device: "cpu"  # cpu | cuda
+  batch_size: 20
+  pause_between_sentences_ms: 500
+
+# --- Video Assembly ---
+video:
+  layout: "three_panel"  # three_panel | fullscreen | side_by_side
+  resolution:
+    width: 1920
+    height: 1080
+  fps: 30
+  panels:
+    left:
+      width: 480
+      content: "title_and_chapter"
+    center:
+      width: 960
+      content: "mukbang_video"
+    right:
+      width: 480
+      content: "channel_info"
+  video_codec: "libx264"
+  audio_codec: "aac"
+  audio_bitrate: "192k"
+  crf: 18
+  preset: "medium"
+
+# --- Background Music ---
+background_music:
+  enabled: true
+  volume_ratio: 0.12  # 12% volume for BGM
+  sources:
+    - "data/bgm/"  # Local royalty-free music
+    - "youtube_audio_library"
+
+# --- Thumbnail ---
+thumbnail:
+  width: 1280
+  height: 720
+  font_size_title: 72
+  font_size_subtitle: 36
+  background_color: "#1a1a2e"
+
+# --- YouTube Publishing ---
+youtube:
+  category_id: "24"  # Entertainment
+  default_language: "vi"
+  privacy: "private"  # private | unlisted | public
+  tags:
+    - "truyen audio"
+    - "audio"
+    - "truyen hay"
+    - "truyen full"
+    - "truyen ngon tinh"
+    - "review truyen"
+    - "audiobook"
+  upload_schedule:
+    enabled: true
+    videos_per_day: 2
+    optimal_times:
+      - "12:00"
+      - "18:30"
+      - "20:00"
+      - "21:30"
+
+# --- Monitoring ---
+monitoring:
+  prometheus_port: 9090
+  grafana_port: 3000
+  health_check_endpoint: "/health"

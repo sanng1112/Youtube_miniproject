@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -216,3 +217,57 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+=======
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+.venv/
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project data
+data/audio/*
+data/video/*
+data/thumbnails/*
+data/mukbang_library/*
+data/stories/*
+!data/**/.gitkeep
+
+# Secrets & tokens
+token.pickle
+client_secret*.json
+*.key
+*.pem
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model files (too large for git)
+models/
+*.bin
+*.gguf
+*.onnx
+*.safetensors
+checkpoints/
+
+# Logs
+logs/
+*.log
+
+# Docker
+docker-compose.override.yml
+>>>>>>> a2ad162 (Step 1: Initialize project structure)
